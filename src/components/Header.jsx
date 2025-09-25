@@ -4,8 +4,7 @@ import { AiOutlineHeart } from "react-icons/ai"; // Ant Design Icons
 import { AiOutlineShoppingCart } from "react-icons/ai"; // Ant Design Icons
 import { AiOutlineUser } from "react-icons/ai"; // Ant Design Icons
 import WishListStatus from "./WishListStatus";
-import CartStatus from "./cartStatus";
-
+import CartStats from "./CartStats";
 const Header = () => {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
@@ -43,7 +42,7 @@ const Header = () => {
             <NavLink to="/cart" className="nav-link position-relative">
               <div className="position-relative d-inline-block">
                 <AiOutlineShoppingCart size={24} className="ms-3" />
-                <CartStatus />
+                <CartStats />
               </div>
             </NavLink>
             <NavLink to="/profile" className="nav-link">

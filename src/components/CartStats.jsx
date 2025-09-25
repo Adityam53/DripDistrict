@@ -1,6 +1,6 @@
 import { useCartContext } from "../contexts/CartContext";
 
-const CartStatus = () => {
+const CartStats = () => {
   const { cartItems } = useCartContext();
 
   return (
@@ -20,4 +20,4 @@ const CartStatus = () => {
   );
 };
 
-export default CartStatus;
+export default CartStats;
