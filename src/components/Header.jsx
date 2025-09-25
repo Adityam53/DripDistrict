@@ -3,8 +3,8 @@ import { NavLink, Link, useLocation } from "react-router-dom";
 import { AiOutlineHeart } from "react-icons/ai"; // Ant Design Icons
 import { AiOutlineShoppingCart } from "react-icons/ai"; // Ant Design Icons
 import { AiOutlineUser } from "react-icons/ai"; // Ant Design Icons
-import CartStatus from "./cartStatus";
 import WishListStatus from "./WishListStatus";
+import CartStatus from "./cartStatus";
 
 const Header = () => {
   const location = useLocation();
