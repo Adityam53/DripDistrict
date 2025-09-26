@@ -56,7 +56,7 @@ const Profile = () => {
 
       {/* Profile Section */}
       <div
-        className="mb-4 p-4 border rounded bg-light"
+        className="mb-4 p-4 border rounded bg-light mx-2 mx-md-0"
         style={{ marginTop: "70px" }}
       >
         <h4>Profile Details</h4>
@@ -72,7 +72,7 @@ const Profile = () => {
       </div>
 
       {/* Addresses Section */}
-      <div className="mb-4 p-4 border rounded bg-light">
+      <div className="mb-4 p-4 border rounded bg-light mx-2 mx-md-0 w-100 w-md-auto">
         <h4>Addresses</h4>
         {addresses.map((addr, index) => (
           <p key={index}>📍 {addr}</p>
@@ -139,7 +139,7 @@ const Profile = () => {
       </div>
 
       {/* Saved Orders */}
-      <div className="p-4 border rounded bg-light">
+      <div className="p-4 border rounded bg-light mx-2 mx-md-0">
         <h4>Order History</h4>
         {orders.length === 0 ? (
           <p>No saved orders yet.</p>
@@ -156,8 +156,8 @@ const Profile = () => {
               </thead>
               <tbody>
                 {orders.slice(0, 3).map((order) => (
-                  <tr key={order.id}>
-                    <td>{order.id}</td>
+                  <tr key={order._id}>
+                    <td>{order._id}</td>
                     <td>{order.placedAt}</td>
                     <td>₹{order.total.toFixed(2)}</td>
                     <td>Delivered</td>

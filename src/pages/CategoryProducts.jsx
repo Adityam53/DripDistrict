@@ -6,6 +6,7 @@ import { useProductContext } from "../contexts/ProductContext";
 import { useEffect } from "react";
 import Heading from "../components/Heading";
 import { useWishListContext } from "../contexts/WishListContext";
+import Information from "../components/Information";
 
 const CategoryProducts = () => {
   const { categoryName } = useParams();
@@ -42,7 +43,10 @@ const CategoryProducts = () => {
     displayProducts.map((prod) => {
       const isInWishlist = wishlistItems.some((item) => item._id === prod._id);
       return (
-        <div key={prod._id} className="col-md-3 bg-light pb-5">
+        <div
+          key={prod._id}
+          className="col-12 col-sm-6 col-md-4 col-lg-3 bg-light pb-5"
+        >
           <Link
             to={`/products/${prod._id}`}
             style={{ color: "black", textDecoration: "none" }}
@@ -90,14 +94,15 @@ const CategoryProducts = () => {
         {loading && <p className="text-center">Loading...</p>}
         {error && <p className="text-center text-danger">An error occured.</p>}
         <div className="row">
-          <div className="col-md-3">
+          <div className="col-12 mb-4 mb-md-0 col-md-3 px-0 px-md-4">
             <SideBar showCategoryFilter={false} />
           </div>
-          <div className="col-md-9">
+          <div className="col-12 col-md-9 px-0">
             <div className="row">{listProducts}</div>
           </div>
         </div>
       </section>
+      <Information />
     </>
   );
 };

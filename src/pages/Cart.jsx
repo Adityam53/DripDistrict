@@ -32,11 +32,11 @@ const Cart = () => {
         ) : (
           <>
             {/* Table Header */}
-            <div className="row border-bottom  fw-semibold text-secondary">
-              <div className="col-6">Product</div>
-              <div className="col-2 text-end">Price</div>
-              <div className="col-2 text-center">Quantity</div>
-              <div className="col-2 text-end">Total</div>
+            <div className="row border-bottom  fw-semibold text-secondary d-none d-md-flex">
+              <div className="col-md-6">Product</div>
+              <div className="col-md-2 text-end">Price</div>
+              <div className="col-md-2 text-center">Quantity</div>
+              <div className="col-md-2 text-end">Total</div>
             </div>
 
             {/* Cart Items */}
@@ -49,13 +49,13 @@ const Cart = () => {
               return (
                 <div
                   key={item._id}
-                  className="row align-items-center border-bottom"
+                  className="row align-items-center border-bottom mx-2 mx-md-0"
                   style={{
                     padding: "28px 0", // bigger vertical spacing like reference
                   }}
                 >
                   {/* Product Details */}
-                  <div className="col-6 d-flex align-items-center">
+                  <div className="col-12 col-md-6 px-0 d-flex align-items-center mb-3 mb-md-0">
                     <Link
                       // onClick={scrollToTop}
                       to={`/products/${item._id}`}
@@ -64,11 +64,9 @@ const Cart = () => {
                       <img
                         src={item.imageUrl}
                         alt={item.title}
+                        className="img-fluid me-3"
                         style={{
-                          width: "120px", // bigger
-                          height: "120px",
-                          objectFit: "cover",
-                          marginRight: "24px", // more breathing room
+                          maxWidth: "100px",
                           borderRadius: "8px",
                         }}
                       />
@@ -102,14 +100,14 @@ const Cart = () => {
 
                   {/* Price */}
                   <div
-                    className="col-2 text-end"
+                    className="col-6 col-md-2 text-start px-0 text-md-end mb-2 mb-md-0"
                     style={{ fontSize: "1.05rem" }}
                   >
                     ₹{discountedPrice.toFixed(2)}
                   </div>
 
                   {/* Quantity Controls */}
-                  <div className="col-2 d-flex justify-content-center align-items-center gap-3">
+                  <div className="col-6 col-md-2 d-flex px-0 justify-content-start justify-content-md-center align-items-center gap-2 mb-2 mb-md-0">
                     <button
                       className="btn btn-outline-secondary btn-sm"
                       style={{ fontSize: "1.1rem", padding: "6px 12px" }}
@@ -137,7 +135,7 @@ const Cart = () => {
 
                   {/* Total */}
                   <div
-                    className="col-2 text-end"
+                    className="col-12 col-md-2 text-start px-0 text-md-end"
                     style={{ fontSize: "1.05rem" }}
                   >
                     ₹{(discountedPrice * item.quantity).toFixed(2)}
@@ -147,8 +145,8 @@ const Cart = () => {
             })}
 
             {/* Summary Section */}
-            <div className="row justify-content-end mt-4">
-              <div className="col-md-4 border-top pt-3">
+            <div className="row justify-content-end mt-4 mx-2 mx-md-0">
+              <div className="col-12 col-md-4 border-top pt-3 px-0">
                 <div className="d-flex justify-content-between mb-2">
                   <span className="fw-medium">Subtotal</span>
                   <span>₹{cartTotal.toFixed(2)}</span>

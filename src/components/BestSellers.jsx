@@ -6,7 +6,7 @@ const BestSellers = () => {
   return (
     <>
       <section className="pt-5">
-        <div className="d-flex justify-content-between align-items-center px-3 fw-lighter">
+        <div className="d-flex justify-content-between align-items-center mx-3 px-0 fw-lighter">
           <div>
             <p>BEST SELLERS</p>
           </div>
@@ -18,11 +18,11 @@ const BestSellers = () => {
         </div>
         {loading && <p className="text-center">Loading...</p>}
         {error && <p className="text-center text-danger">An error occured.</p>}
-        <div className="row bg-light">
+        <div className="row bg-light mx-2 mx-md-0 px-0">
           {allProducts &&
             allProducts.length > 0 &&
             allProducts.slice(0, 12).map((item) => (
-              <div className="col-md-2" key={item._id}>
+              <div className="col-4 col-md-2" key={item._id}>
                 <Link to={`/products/${item._id}`}>
                   <img
                     src={item.imageUrl}

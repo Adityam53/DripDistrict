@@ -40,122 +40,102 @@ const ProductDetails = () => {
       {error && <p className="text-center text-danger">An error occurred.</p>}
 
       {data && (
-        <section>
-          <div className="d-flex">
-            {/* Product Image */}
-            <div>
-              <img src={data.imageUrl} className="img-fluid" alt={data.title} />
+        <section className="px-3 py-4">
+          <div className="product-details-wrapper d-flex flex-md-row flex-column gap-4">
+            {/* IMAGE SECTION */}
+            <div className="product-image-wrapper">
+              <img
+                src={data.imageUrl}
+                className="img-fluid"
+                alt={data.title}
+                style={{ width: "100%", maxWidth: "500px" }}
+              />
             </div>
 
-            {/* Product Details */}
-            <div className="w-100 ms-5 me-5">
+            {/* PRODUCT INFO */}
+            <div className="product-info flex-grow-1">
               {/* Discount & Wishlist */}
-              <div>
-                <p className="d-flex justify-content-between">
-                  <span className="bg-dark text-light px-3">
-                    -{data.discountOffered}%
-                  </span>
-                  <span>
-                    <AiOutlineHeart size={24} style={{ cursor: "pointer" }} />
-                  </span>
-                </p>
+              <div className="d-flex justify-content-between align-items-center mb-3">
+                <span className="bg-dark text-light px-3 py-1 rounded">
+                  -{data.discountOffered}%
+                </span>
+                <span
+                  onClick={() => addToWishlistHandler(data._id)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <AiOutlineHeart size={24} />
+                </span>
               </div>
 
               {/* Title */}
-              <p className="fs-4 fw-semibold">{data.title}</p>
+              <h2 className="mb-2">{data.title}</h2>
 
               {/* Rating */}
-              <p style={{ fontSize: 13 }}>
-                <span>Rating:</span> {data.rating}
+              <p className="mb-2" style={{ fontSize: "0.9rem" }}>
+                Rating: {data.rating}
               </p>
 
               {/* Price */}
-              <p>
-                <b className="fs-5">
+              <div className="mb-3">
+                <span className="fs-4 fw-bold text-dark">
                   ₹
                   {(
                     data.price -
                     (data.price * data.discountOffered) / 100
                   ).toFixed(0)}
-                </b>
-                {data.price && (
-                  <span
-                    className="ms-2"
-                    style={{
-                      textDecoration: "line-through",
-                      color: "red",
-                      fontSize: "14px",
-                    }}
-                  >
-                    ₹{data.price}
-                  </span>
-                )}
-              </p>
+                </span>
+                <span
+                  className="ms-2 text-muted"
+                  style={{ textDecoration: "line-through", fontSize: "0.9rem" }}
+                >
+                  ₹{data.price}
+                </span>
+              </div>
 
               {/* Quantity */}
-              <p style={{ fontSize: 13, fontWeight: "500" }}>
-                Quantity:
-                <span
-                  onClick={() => decreaseProductPageQuantity()}
-                  className="border border-secondary p-1 px-2 rounded-circle ms-2"
-                  style={{
-                    cursor: "pointer",
-                    background: "#f8f9fa",
-                    transition: "all 0.2s ease",
-                  }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.background = "#e9ecef")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.background = "#f8f9fa")
-                  }
+              <div className="mb-3">
+                <label
+                  className="me-2"
+                  style={{ fontSize: "0.9rem", fontWeight: 500 }}
                 >
-                  -
-                </span>
-                <span className="ms-2">
+                  Quantity:
+                </label>
+                <div className="d-inline-flex align-items-center">
+                  <button
+                    onClick={decreaseProductPageQuantity}
+                    className="btn btn-outline-secondary btn-sm"
+                  >
+                    -
+                  </button>
                   <input
                     type="number"
                     value={quantity}
                     onChange={(e) => setQuantity(Number(e.target.value))}
                     min={1}
                     max={9}
-                    className="text-center py-0 border rounded"
-                    size={1}
-                    style={{
-                      width: "45px",
-                      fontSize: "14px",
-                      padding: "2px",
-                    }}
+                    className="form-control mx-2 text-center"
+                    style={{ width: "60px", padding: "0.25rem" }}
                   />
-                </span>
-                <span
-                  onClick={() => increaseProductPageQuantity()}
-                  className="border border-secondary p-1 px-2 rounded-circle ms-2"
-                  style={{
-                    cursor: "pointer",
-                    background: "#f8f9fa",
-                    transition: "all 0.2s ease",
-                  }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.background = "#e9ecef")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.background = "#f8f9fa")
-                  }
-                >
-                  +
-                </span>
-              </p>
+                  <button
+                    onClick={increaseProductPageQuantity}
+                    className="btn btn-outline-secondary btn-sm"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
 
               {/* Sizes */}
-              <p style={{ fontSize: 13, fontWeight: "500" }} className="pt-2">
-                Size:{" "}
-                {data.availableSizes.map((size, index) => (
+              <div className="mb-4">
+                <span style={{ fontSize: "0.9rem", fontWeight: 500 }}>
+                  Sizes:
+                </span>
+                {data.availableSizes.map((size, idx) => (
                   <span
-                    key={index}
-                    className="border border-secondary py-1 px-3 ms-2 rounded"
+                    key={idx}
+                    className="border border-secondary px-3 py-1 ms-2 rounded d-inline-block mt-2"
                     style={{
-                      fontSize: "12px",
+                      fontSize: "0.85rem",
                       cursor: "pointer",
                       transition: "all 0.2s ease",
                     }}
@@ -171,77 +151,65 @@ const ProductDetails = () => {
                     {size}
                   </span>
                 ))}
-              </p>
+              </div>
 
               {/* Buttons */}
-              <div className="pt-3 d-flex flex-column gap-3 w-100">
+              <div className="d-flex flex-column flex-sm-row gap-3 mb-4">
                 <button
-                  className="btn btn-dark text-light w-50"
-                  style={{
-                    borderRadius: "8px",
-                    fontWeight: "500",
-                    padding: "10px",
-                    letterSpacing: "0.5px",
-                  }}
+                  className="btn btn-outline-dark px-4"
                   onClick={() => addToCartHandler(data._id, parseInt(quantity))}
                 >
                   ADD TO CART
                 </button>
                 <button
-                  className="btn btn-outline-dark w-50"
-                  style={{
-                    borderRadius: "8px",
-                    fontWeight: "500",
-                    padding: "10px",
-                    letterSpacing: "0.5px",
-                  }}
+                  className="btn btn-outline-dark px-4"
                   onClick={() => addToWishlistHandler(data._id)}
                 >
                   {isInWishlist ? "REMOVE FROM WISHLIST" : "ADD TO WISHLIST"}
                 </button>
               </div>
 
-              {/* Features */}
-              <div className="pt-3">
-                <hr style={{ borderColor: "#dee2e6" }} />
-                <div className="ms-3 d-flex gap-5 align-items-center text-muted">
-                  <div className="d-flex flex-column align-items-center gap-2">
+              {/* Features Section */}
+              <div className="mb-4">
+                <hr />
+                <div className="d-flex flex-wrap justify-content-between text-center text-muted">
+                  <div className="p-2 flex-fill d-flex flex-column align-items-center">
                     <AiOutlineWallet size={36} />
-                    <span className="text-center" style={{ fontSize: 12 }}>
+                    <span className="mt-2" style={{ fontSize: "0.85rem" }}>
                       Pay On <br /> Delivery
                     </span>
                   </div>
-                  <div className="d-flex flex-column align-items-center gap-2">
+                  <div className="p-2 flex-fill d-flex flex-column align-items-center">
                     <AiOutlineUndo size={36} />
-                    <span className="text-center" style={{ fontSize: 12 }}>
+                    <span className="mt-2" style={{ fontSize: "0.85rem" }}>
                       10 Days <br /> Returnable
                     </span>
                   </div>
-                  <div className="d-flex flex-column align-items-center gap-2">
+                  <div className="p-2 flex-fill d-flex flex-column align-items-center">
                     <AiOutlineCar size={36} />
-                    <span className="text-center" style={{ fontSize: 12 }}>
+                    <span className="mt-2" style={{ fontSize: "0.85rem" }}>
                       Free <br /> Delivery
                     </span>
                   </div>
-                  <div className="d-flex flex-column align-items-center gap-2">
+                  <div className="p-2 flex-fill d-flex flex-column align-items-center">
                     <AiOutlineCreditCard size={36} />
-                    <span className="text-center" style={{ fontSize: 12 }}>
+                    <span className="mt-2" style={{ fontSize: "0.85rem" }}>
                       Secure <br /> Payments
                     </span>
                   </div>
                 </div>
-                <hr style={{ borderColor: "#dee2e6" }} />
+                <hr />
               </div>
 
               {/* Description */}
-              <p style={{ fontSize: 13 }} className="pt-2">
-                Description:
-              </p>
-              <ul>
-                {data.description.map((desc, index) => (
-                  <li key={index}>{desc}</li>
-                ))}
-              </ul>
+              <div>
+                <h5>Description:</h5>
+                <ul>
+                  {data.description.map((desc, index) => (
+                    <li key={index}>{desc}</li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </section>
