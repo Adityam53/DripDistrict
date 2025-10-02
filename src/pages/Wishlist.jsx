@@ -26,8 +26,11 @@ const Wishlist = () => {
               );
 
               return (
-                <div key={item._id} className="col-md-3">
-                  <div className="card h-100 shadow-sm border-0">
+                <div
+                  key={item._id}
+                  className="col-sm-6 col-md-4 col-lg-3 d-flex"
+                >
+                  <div className="card shadow-sm border-0 w-100 d-flex flex-column">
                     <img
                       src={item.imageUrl}
                       alt={item.title}
@@ -39,17 +42,13 @@ const Wishlist = () => {
                         borderTopRightRadius: "8px",
                       }}
                     />
-
-                    <div className="card-body text-center d-flex flex-column">
-                      {/* Title */}
+                    <div className="card-body text-center d-flex flex-column flex-grow-1">
                       <p
                         className="fw-medium mb-1"
                         style={{ fontSize: "1.05rem" }}
                       >
                         {item.title}
                       </p>
-
-                      {/* Prices */}
                       <p
                         className="mb-0 text-muted text-decoration-line-through"
                         style={{ fontSize: "0.95rem" }}
@@ -62,21 +61,20 @@ const Wishlist = () => {
                       >
                         ₹{discountedPrice.toFixed(2)}
                       </p>
-
-                      {/* Buttons */}
-                      <button
-                        className="btn btn-dark w-100 mb-2 fw-medium"
-                        onClick={() => addToCartHandler(item._id, quantity)}
-                      >
-                        Add to Cart
-                      </button>
-
-                      <button
-                        className="btn btn-outline-secondary w-100 fw-medium"
-                        onClick={() => removeFromWishlistHandler(item._id)}
-                      >
-                        Remove
-                      </button>
+                      <div className="mt-auto">
+                        <button
+                          className="btn btn-dark w-100 mb-2 fw-medium"
+                          onClick={() => addToCartHandler(item._id, quantity)}
+                        >
+                          Add to Cart
+                        </button>
+                        <button
+                          className="btn btn-outline-secondary w-100 fw-medium"
+                          onClick={() => removeFromWishlistHandler(item._id)}
+                        >
+                          Remove
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>

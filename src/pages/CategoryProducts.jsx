@@ -59,6 +59,7 @@ const CategoryProducts = () => {
               <div>
                 <p className="mb-1">{prod.title}</p>
               </div>
+              <div>{prod.rating} ⭐️</div>
               <div>
                 <p className="">
                   ₹.

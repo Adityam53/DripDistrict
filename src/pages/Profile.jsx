@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import Heading from "../components/Heading";
 import { useOrderContext } from "../contexts/OrderContext"; // ✅ import
 import { Link } from "react-router-dom"; // ✅ use Link for smooth nav
+import { useAddressContext } from "../contexts/AddressContext";
 
 const Profile = () => {
   const { orders } = useOrderContext(); // ✅ real orders from context
 
-  const [addresses, setAddresses] = useState([
-    "123, MG Road, Bengaluru, Karnataka - 560001",
-    "456, Park Street, Kolkata, West Bengal - 700016",
-  ]);
+  const { addresses } = useAddressContext();
 
   const [formData, setFormData] = useState({
     houseNo: "",
