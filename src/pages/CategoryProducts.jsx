@@ -24,8 +24,9 @@ const CategoryProducts = () => {
   } = useProductContext();
 
   const { addToWishlistHandler, wishlistItems } = useWishListContext();
+
   useEffect(() => {
-    // Reset filters
+    // Reset filters when category changes
     handleClearClick();
     setIsCategoryView(true);
     scrollToTop();
@@ -37,69 +38,91 @@ const CategoryProducts = () => {
       setProducts(data);
     }
   }, [data]);
-  const listProducts =
-    displayProducts &&
-    displayProducts.length > 0 &&
-    displayProducts.map((prod) => {
-      const isInWishlist = wishlistItems.some((item) => item._id === prod._id);
-      return (
-        <div
-          key={prod._id}
-          className="col-12 col-sm-6 col-md-4 col-lg-3 bg-light pb-5"
-        >
-          <Link
-            to={`/products/${prod._id}`}
-            style={{ color: "black", textDecoration: "none" }}
-          >
-            <div
-              className=" d-flex flex-column justify-content-between"
-              style={{ height: "100%" }}
-            >
-              <img className="img-fluid pb-3" src={prod.imageUrl} alt="" />
-              <div>
-                <p className="mb-1">{prod.title}</p>
-              </div>
-              <div>{prod.rating} ⭐️</div>
-              <div>
-                <p className="">
-                  ₹.
-                  {(
-                    prod.price -
-                    (prod.price * prod.discountOffered) / 100
-                  ).toFixed(0)}
-                  {prod.price && (
-                    <span
-                      className="ms-3"
-                      style={{ textDecoration: "line-through", color: "red" }}
-                    >
-                      ₹.{prod.price}
-                    </span>
-                  )}
-                </p>
-              </div>
-            </div>
-          </Link>
-          <button
-            onClick={() => addToWishlistHandler(prod._id)}
-            className="btn btn-dark w-100"
-          >
-            {isInWishlist ? "REMOVE FROM WISHLIST" : "ADD TO WISHLIST"}
-          </button>
-        </div>
-      );
-    });
+
   return (
     <>
       <Heading title={categoryName} />
-      <section className="container px-0 mb-5" style={{ marginTop: "75px" }}>
+      <section
+        className="container-fluid px-3 px-md-5 mb-5"
+        style={{ marginTop: "75px" }}
+      >
         {loading && <p className="text-center">Loading...</p>}
-        {error && <p className="text-center text-danger">An error occured.</p>}
+        {error && <p className="text-center text-danger">An error occurred.</p>}
+
         <div className="row">
-          <div className="col-12 mb-4 mb-md-0 col-md-3 px-0 px-md-4">
+          {/* Sidebar */}
+          <div className="col-12 mb-4 col-md-3">
             <SideBar showCategoryFilter={false} />
           </div>
-          <div className="col-12 col-md-9 px-0">
-            <div className="row">{listProducts}</div>
+
+          {/* Products */}
+          <div className="col-12 col-md-9">
+            <div className="row g-3">
+              {displayProducts && displayProducts.length > 0
+                ? displayProducts.map((prod) => {
+                    const isInWishlist = wishlistItems.some(
+                      (item) => item._id === prod._id
+                    );
+
+                    return (
+                      <div
+                        key={prod._id}
+                        className="col-12 col-sm-6 col-md-4 col-lg-3"
+                      >
+                        <div className="card h-100 shadow-sm border-0">
+                          <Link
+                            to={`/products/${prod._id}`}
+                            className="text-decoration-none text-dark"
+                          >
+                            <img
+                              src={prod.imageUrl}
+                              className="card-img-top img-fluid"
+                              alt={prod.title}
+                              loading="lazy"
+                              style={{
+                                height: "250px",
+                                objectFit: "cover",
+                              }}
+                            />
+                            <div className="card-body d-flex flex-column justify-content-between">
+                              <p className="card-title mb-1 fw-semibold">
+                                {prod.title}
+                              </p>
+                              <div className="mb-1">{prod.rating} ⭐️</div>
+                              <p className="mb-2 fw-bold">
+                                ₹
+                                {(
+                                  prod.price -
+                                  (prod.price * prod.discountOffered) / 100
+                                ).toFixed(0)}
+                                {prod.price && (
+                                  <span className="ms-2 text-muted text-decoration-line-through">
+                                    ₹{prod.price}
+                                  </span>
+                                )}
+                              </p>
+                            </div>
+                          </Link>
+                          <div className="card-footer bg-white border-0">
+                            <button
+                              onClick={() => addToWishlistHandler(prod._id)}
+                              className="btn btn-outline-dark w-100"
+                            >
+                              {isInWishlist
+                                ? "REMOVE FROM WISHLIST"
+                                : "ADD TO WISHLIST"}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })
+                : !loading && (
+                    <p className="text-center w-100 mt-4">
+                      No products found in this category.
+                    </p>
+                  )}
+            </div>
           </div>
         </div>
       </section>
