@@ -9,6 +9,7 @@ const Cart = () => {
     increaseQuantity,
     decreaseQuantity,
     removeFromCartHandler,
+    size,
   } = useCartContext();
   const { getDiscountedPrice } = useProductContext();
 
@@ -82,7 +83,7 @@ const Cart = () => {
                         className="mb-0 text-muted"
                         style={{ fontSize: "1rem" }}
                       >
-                        Size: XS
+                        Size: {item.selectedSize}
                       </p>
                       <button
                         onClick={() => removeFromCartHandler(item._id)}
@@ -111,7 +112,9 @@ const Cart = () => {
                     <button
                       className="btn btn-outline-secondary btn-sm"
                       style={{ fontSize: "1.1rem", padding: "6px 12px" }}
-                      onClick={() => decreaseQuantity(item._id)}
+                      onClick={() =>
+                        decreaseQuantity(item._id, item.selectedSize)
+                      }
                     >
                       −
                     </button>
@@ -127,7 +130,9 @@ const Cart = () => {
                     <button
                       className="btn btn-outline-secondary btn-sm"
                       style={{ fontSize: "1.1rem", padding: "6px 12px" }}
-                      onClick={() => increaseQuantity(item._id)}
+                      onClick={() =>
+                        increaseQuantity(item._id, item.selectedSize)
+                      }
                     >
                       +
                     </button>

@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import {
   AiOutlineWallet,
   AiOutlineUndo,
@@ -21,6 +21,8 @@ const ProductDetails = () => {
     addToCartHandler,
     increaseProductPageQuantity,
     decreaseProductPageQuantity,
+    size,
+    setSize,
   } = useCartContext();
   const { addToWishlistHandler, wishlistItems } = useWishListContext();
 
@@ -32,7 +34,8 @@ const ProductDetails = () => {
   const isInWishlist = wishlistItems.some((item) => item._id === productId);
   useEffect(() => {
     scrollToTop();
-  }, [scrollToTop, productId]);
+    setSize(null);
+  }, [scrollToTop, productId, setSize]);
 
   return (
     <>
@@ -63,7 +66,11 @@ const ProductDetails = () => {
                   onClick={() => addToWishlistHandler(data._id)}
                   style={{ cursor: "pointer" }}
                 >
-                  <AiOutlineHeart size={24} />
+                  {isInWishlist ? (
+                    <AiFillHeart size={24} color="red" />
+                  ) : (
+                    <AiOutlineHeart size={24} color="black" />
+                  )}
                 </span>
               </div>
 
@@ -130,7 +137,7 @@ const ProductDetails = () => {
                 <span style={{ fontSize: "0.9rem", fontWeight: 500 }}>
                   Sizes:
                 </span>
-                {data.availableSizes.map((size, idx) => (
+                {data.availableSizes.map((item, idx) => (
                   <span
                     key={idx}
                     className="border border-secondary px-3 py-1 ms-2 rounded d-inline-block mt-2"
@@ -138,17 +145,26 @@ const ProductDetails = () => {
                       fontSize: "0.85rem",
                       cursor: "pointer",
                       transition: "all 0.2s ease",
+                      background: size === item ? "#000" : "transparent",
+                      color: size === item ? "#fff" : "#000",
+                      border:
+                        size === item ? "2px solid #000" : "1px solid #ccc",
                     }}
+                    onClick={() => setSize(item)}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = "#000";
-                      e.currentTarget.style.color = "#fff";
+                      if (size !== item) {
+                        e.currentTarget.style.background = "#000";
+                        e.currentTarget.style.color = "#fff";
+                      }
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.background = "transparent";
-                      e.currentTarget.style.color = "#000";
+                      if (size !== item) {
+                        e.currentTarget.style.background = "transparent";
+                        e.currentTarget.style.color = "#000";
+                      }
                     }}
                   >
-                    {size}
+                    {item}
                   </span>
                 ))}
               </div>
@@ -157,7 +173,10 @@ const ProductDetails = () => {
               <div className="d-flex flex-column flex-sm-row gap-3 mb-4">
                 <button
                   className="btn btn-outline-dark px-4"
-                  onClick={() => addToCartHandler(data._id, parseInt(quantity))}
+                  onClick={() =>
+                    addToCartHandler(data._id, parseInt(quantity), size)
+                  }
+                  // disabled={!size}
                 >
                   ADD TO CART
                 </button>

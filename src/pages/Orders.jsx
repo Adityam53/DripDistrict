@@ -1,5 +1,6 @@
 import Heading from "../components/Heading";
 import { useOrderContext } from "../contexts/OrderContext";
+import { Link } from "react-router-dom";
 
 const Orders = () => {
   const { orders } = useOrderContext();
@@ -29,16 +30,31 @@ const Orders = () => {
                       key={item._id}
                       className="d-flex gap-3 align-items-center"
                     >
-                      <img
-                        src={item.imageUrl}
-                        alt={item.title}
-                        style={{
-                          width: "70px",
-                          height: "90px",
-                          borderRadius: "6px",
-                          objectFit: "cover",
-                        }}
-                      />
+                      {item._id ? (
+                        <Link to={`/products/${item._id}`}>
+                          <img
+                            src={item.imageUrl}
+                            alt={item.title}
+                            style={{
+                              width: "70px",
+                              height: "90px",
+                              borderRadius: "6px",
+                              objectFit: "cover",
+                            }}
+                          />
+                        </Link>
+                      ) : (
+                        <img
+                          src={item.imageUrl}
+                          alt={item.title}
+                          style={{
+                            width: "70px",
+                            height: "90px",
+                            borderRadius: "6px",
+                            objectFit: "cover",
+                          }}
+                        />
+                      )}
                       <div>
                         <p className="fw-bold mb-1">{item.title}</p>
                         <small>Qty: {item.quantity}</small>

@@ -36,11 +36,12 @@ const Checkout = () => {
 
     const newOrder = {
       items: cartItems.map((item) => ({
-        product: item._id,
+        _id: item._id,
         title: item.title,
         imageUrl: item.imageUrl,
         price: item.price,
         quantity: item.quantity,
+        selectedSize: item.selectedSize,
       })),
       total: cartItems.reduce(
         (acc, item) => acc + item.price * item.quantity,

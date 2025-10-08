@@ -12,45 +12,69 @@ export const CartProvider = ({ children }) => {
     return saved ? JSON.parse(saved) : [];
   });
   const [quantity, setQuantity] = useState(1);
+  const [size, setSize] = useState("");
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
   }, [cartItems]);
-  const addToCartHandler = (selectedProdId, selectedQuantity) => {
+  const addToCartHandler = (selectedProdId, selectedQuantity, selectedSize) => {
     const product = products.find((prod) => prod._id === selectedProdId);
     if (!product) return;
 
+    if (!size) {
+      toast.error("Please select a size to move forward.");
+      return;
+    }
+
     setCartItems((prev) => {
-      const existing = prev.find((item) => item._id === selectedProdId);
+      const existing = prev.find(
+        (item) =>
+          item._id === selectedProdId && item.selectedSize === selectedSize
+      );
       if (existing) {
         return prev.map((item) =>
-          item._id === selectedProdId
+          item._id === selectedProdId && item.selectedSize === selectedSize
             ? { ...item, quantity: item.quantity + selectedQuantity }
             : item
         );
       }
-      return [...prev, { ...product, quantity: selectedQuantity }];
+      return [
+        ...prev,
+        { ...product, quantity: selectedQuantity, selectedSize },
+      ];
     });
 
-    toast.success(`Added ${product.title} to cart`);
+    toast.success(`Added ${product.title} (${selectedSize}) to cart`);
   };
 
-  const removeFromCartHandler = (selectedProdId) => {
-    setCartItems((prev) => prev.filter((item) => item._id != selectedProdId));
-  };
-
-  const increaseQuantity = (id) => {
+  const removeFromCartHandler = (selectedProdId, selectedSize) => {
     setCartItems((prev) =>
-      prev.map((item) =>
-        item._id === id ? { ...item, quantity: item.quantity + 1 } : item
+      prev.filter(
+        (item) =>
+          !(
+            item._id === selectedProdId &&
+            (!selectedSize || item.selectedSize === selectedSize)
+          )
       )
     );
   };
 
-  const decreaseQuantity = (id) => {
+  const increaseQuantity = (id, selectedSize) => {
     setCartItems((prev) =>
       prev.map((item) =>
-        item._id === id && item.quantity > 1
+        item._id === id && item.selectedSize === selectedSize
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      )
+    );
+  };
+
+  const decreaseQuantity = (id, selectedSize) => {
+    setCartItems((prev) =>
+      prev.map((item) =>
+        item._id === id &&
+        item.quantity > 1 &&
+        item.selectedSize === selectedSize
           ? { ...item, quantity: item.quantity - 1 }
           : item
       )
@@ -63,6 +87,8 @@ export const CartProvider = ({ children }) => {
   const decreaseProductPageQuantity = () => {
     setQuantity((prev) => Math.max(1, prev - 1));
   };
+  const resetSize = () => setSize("");
+
   return (
     <CartContext.Provider
       value={{
@@ -76,6 +102,9 @@ export const CartProvider = ({ children }) => {
         removeFromCartHandler,
         increaseProductPageQuantity,
         decreaseProductPageQuantity,
+        size,
+        setSize,
+        resetSize,
       }}
     >
       {children}

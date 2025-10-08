@@ -2,6 +2,7 @@ import Heading from "../components/Heading";
 import { useProductContext } from "../contexts/ProductContext";
 import { useWishListContext } from "../contexts/WishListContext";
 import { useCartContext } from "../contexts/CartContext";
+import { Link } from "react-router-dom";
 
 const Wishlist = () => {
   const { wishlistItems, removeFromWishlistHandler } = useWishListContext();
@@ -31,17 +32,20 @@ const Wishlist = () => {
                   className="col-sm-6 col-md-4 col-lg-3 d-flex"
                 >
                   <div className="card shadow-sm border-0 w-100 d-flex flex-column">
-                    <img
-                      src={item.imageUrl}
-                      alt={item.title}
-                      className="card-img-top"
-                      style={{
-                        height: "220px",
-                        objectFit: "cover",
-                        borderTopLeftRadius: "8px",
-                        borderTopRightRadius: "8px",
-                      }}
-                    />
+                    <Link to={`/products/${item._id}`}>
+                      <img
+                        src={item.imageUrl}
+                        alt={item.title}
+                        className="card-img-top"
+                        style={{
+                          height: "220px",
+                          objectFit: "cover",
+                          borderTopLeftRadius: "8px",
+                          borderTopRightRadius: "8px",
+                        }}
+                      />
+                    </Link>
+
                     <div className="card-body text-center d-flex flex-column flex-grow-1">
                       <p
                         className="fw-medium mb-1"
