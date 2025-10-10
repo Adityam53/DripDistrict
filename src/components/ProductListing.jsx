@@ -2,6 +2,7 @@ import { useProductContext } from "../contexts/ProductContext";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useCartContext } from "../contexts/CartContext";
+import { useWishListContext } from "../contexts/WishListContext";
 
 const ProductListing = () => {
   const {
@@ -18,7 +19,8 @@ const ProductListing = () => {
     getDiscountedPrice,
   } = useProductContext();
 
-  const { addToCartHandler, quantity } = useCartContext();
+  // const { addToCartHandler, quantity } = useCartContext();
+  const { addToWishlistHandler, wishlistItems } = useWishListContext();
 
   useEffect(() => {
     setProducts(allProducts);
@@ -29,18 +31,33 @@ const ProductListing = () => {
     setSearch("");
   }, []);
 
+  const totalProducts = displayProducts?.length || 0;
+
   return (
     <section className="container-fluid px-3 px-md-4 mb-5">
       {loading && <p className="text-center">Loading...</p>}
       {error && <p className="text-center text-danger">An error occurred.</p>}
 
+      {!loading && !error && (
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h5 className="fw-semibold m-0">All Products</h5>
+          <p className="text-muted m-0">
+            Showing <strong>{totalProducts}</strong>{" "}
+            {totalProducts === 1 ? "product" : "products"}
+          </p>
+        </div>
+      )}
+
       <div className="row g-3">
         {displayProducts && displayProducts.length > 0
-          ? displayProducts.slice(0, 20).map((prod) => {
+          ? displayProducts.map((prod) => {
               const discountedPrice = getDiscountedPrice(
                 prod.price,
                 prod.discountOffered
               ).toFixed(0);
+              const isInWishlist = wishlistItems.some(
+                (item) => item._id === prod._id
+              );
 
               return (
                 <div
@@ -76,10 +93,12 @@ const ProductListing = () => {
                     </Link>
                     <div className="card-footer bg-white border-0">
                       <button
+                        onClick={() => addToWishlistHandler(prod._id)}
                         className="btn btn-outline-dark w-100"
-                        onClick={() => addToCartHandler(prod._id, quantity)}
                       >
-                        ADD TO CART
+                        {isInWishlist
+                          ? "REMOVE FROM WISHLIST"
+                          : "ADD TO WISHLIST"}
                       </button>
                     </div>
                   </div>

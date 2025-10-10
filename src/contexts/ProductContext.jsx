@@ -54,9 +54,9 @@ export const ProductProvider = ({ children }) => {
 
   useEffect(() => {
     if (data) {
-      setAllProducts(data.slice(0, 20));
-      setProducts(data.slice(0, 20));
-      setDisplayProducts(data.slice(0, 20));
+      setAllProducts(data);
+      setProducts(data);
+      setDisplayProducts(data);
     }
   }, [data]);
 

@@ -11,7 +11,9 @@ const Header = () => {
   const isCartPage = location.pathname === "/cart";
   const isWishlistPage = location.pathname === "/wishlist";
   const isProfilePage = location.pathname === "/profile";
-  const isProductDetailsPage = location.pathname === "/products/id";
+  const isProductDetailsPage = location.pathname.startsWith("/products/");
+  const isCategoryProductsPage = location.pathname.startsWith("/category/");
+  const isCompnayInfoPage = location.pathname.startsWith("/info/");
 
   return (
     <header className="my-3">
@@ -29,7 +31,9 @@ const Header = () => {
             !isCartPage &&
             !isProfilePage &&
             !isWishlistPage &&
-            !isProductDetailsPage && (
+            !isProductDetailsPage &&
+            !isCategoryProductsPage &&
+            !isCompnayInfoPage && (
               <div className="w-100 order-3 order-md-2">
                 <SearchBar />
               </div>

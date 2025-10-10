@@ -5,7 +5,11 @@ import { useCartContext } from "../contexts/CartContext";
 import { Link } from "react-router-dom";
 
 const Wishlist = () => {
-  const { wishlistItems, removeFromWishlistHandler } = useWishListContext();
+  const {
+    wishlistItems,
+    removeFromWishlistHandler,
+    addToCartFromWishlistHandler,
+  } = useWishListContext();
   const { getDiscountedPrice } = useProductContext();
   const { addToCartHandler, quantity } = useCartContext();
 
@@ -66,12 +70,16 @@ const Wishlist = () => {
                         ₹{discountedPrice.toFixed(2)}
                       </p>
                       <div className="mt-auto">
-                        <button
-                          className="btn btn-dark w-100 mb-2 fw-medium"
-                          onClick={() => addToCartHandler(item._id, quantity)}
-                        >
-                          Add to Cart
-                        </button>
+                        <Link to={`/products/${item._id}`}>
+                          {" "}
+                          <button
+                            className="btn btn-dark w-100 mb-2 fw-medium"
+                            onClick={() => addToCartFromWishlistHandler()}
+                          >
+                            Add to Cart
+                          </button>
+                        </Link>
+
                         <button
                           className="btn btn-outline-secondary w-100 fw-medium"
                           onClick={() => removeFromWishlistHandler(item._id)}

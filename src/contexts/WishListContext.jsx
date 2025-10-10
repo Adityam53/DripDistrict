@@ -41,12 +41,16 @@ export const WishlistProvider = ({ children }) => {
       prev.filter((item) => item._id !== selectedProdId)
     );
   };
+  const addToCartFromWishlistHandler = () => {
+    toast.error("Please select a size to move forward.");
+  };
   return (
     <WishListContext.Provider
       value={{
         addToWishlistHandler,
         wishlistItems,
         removeFromWishlistHandler,
+        addToCartFromWishlistHandler,
       }}
     >
       {children}
