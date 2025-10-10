@@ -38,6 +38,7 @@ const CategoryProducts = () => {
       setProducts(data);
     }
   }, [data]);
+  const totalProducts = displayProducts?.length || 0;
 
   return (
     <>
@@ -57,6 +58,15 @@ const CategoryProducts = () => {
 
           {/* Products */}
           <div className="col-12 col-md-9">
+            {!loading && !error && (
+              <div className="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center mb-3 text-center text-sm-start">
+                <h5 className="fw-semibold mb-2 mb-sm-0">All Products</h5>
+                <p className="text-muted m-0">
+                  Showing <strong>{totalProducts}</strong>{" "}
+                  {totalProducts === 1 ? "product" : "products"}
+                </p>
+              </div>
+            )}
             <div className="row g-3">
               {displayProducts && displayProducts.length > 0
                 ? displayProducts.map((prod) => {
