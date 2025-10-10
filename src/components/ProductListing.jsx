@@ -39,8 +39,8 @@ const ProductListing = () => {
       {error && <p className="text-center text-danger">An error occurred.</p>}
 
       {!loading && !error && (
-        <div className="d-flex justify-content-between align-items-center mb-3">
-          <h5 className="fw-semibold m-0">All Products</h5>
+        <div className="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center mb-3 text-center text-sm-start">
+          <h5 className="fw-semibold mb-2 mb-sm-0">All Products</h5>
           <p className="text-muted m-0">
             Showing <strong>{totalProducts}</strong>{" "}
             {totalProducts === 1 ? "product" : "products"}
