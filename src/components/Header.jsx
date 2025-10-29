@@ -12,7 +12,6 @@ const Header = () => {
   const isWishlistPage = location.pathname === "/wishlist";
   const isProfilePage = location.pathname === "/profile";
   const isProductDetailsPage = location.pathname.startsWith("/products/");
-  const isCategoryProductsPage = location.pathname.startsWith("/category/");
   const isCompnayInfoPage = location.pathname.startsWith("/info/");
 
   return (
@@ -32,7 +31,6 @@ const Header = () => {
             !isProfilePage &&
             !isWishlistPage &&
             !isProductDetailsPage &&
-            !isCategoryProductsPage &&
             !isCompnayInfoPage && (
               <div className="w-100 order-3 order-md-2">
                 <SearchBar />

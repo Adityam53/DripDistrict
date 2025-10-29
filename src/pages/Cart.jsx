@@ -2,6 +2,7 @@ import Heading from "../components/Heading";
 import { useCartContext } from "../contexts/CartContext";
 import { useProductContext } from "../contexts/ProductContext";
 import { Link } from "react-router-dom";
+import { useWishListContext } from "../contexts/WishListContext";
 
 const Cart = () => {
   const {
@@ -12,6 +13,7 @@ const Cart = () => {
     size,
   } = useCartContext();
   const { getDiscountedPrice } = useProductContext();
+  const { addToWishlistHandler } = useWishListContext();
 
   const cartTotal = cartItems.reduce((acc, curr) => {
     const discountedPrice = getDiscountedPrice(
@@ -95,6 +97,18 @@ const Cart = () => {
                         }}
                       >
                         Remove
+                      </button>{" "}
+                      <br />
+                      <button
+                        onClick={() => addToWishlistHandler(item._id)}
+                        className="btn btn-link p-0 mt-1"
+                        style={{
+                          fontSize: "0.9rem",
+                          textDecoration: "underline",
+                          color: "#6c757d",
+                        }}
+                      >
+                        Move To Wishlist
                       </button>
                     </div>
                   </div>
