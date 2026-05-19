@@ -16,7 +16,7 @@ const Checkout = () => {
   const cartTotal = cartItems.reduce((acc, curr) => {
     const discountedPrice = getDiscountedPrice(
       curr.price,
-      curr.discountOffered
+      curr.discountOffered,
     );
     return acc + discountedPrice * curr.quantity;
   }, 0);
@@ -45,7 +45,7 @@ const Checkout = () => {
       })),
       total: cartItems.reduce(
         (acc, item) => acc + item.price * item.quantity,
-        0
+        0,
       ),
       address: selectedAddress,
     };
@@ -75,7 +75,7 @@ const Checkout = () => {
           {cartItems.map((item) => {
             const discountedPrice = getDiscountedPrice(
               item.price,
-              item.discountOffered
+              item.discountOffered,
             ).toFixed(0);
 
             return (

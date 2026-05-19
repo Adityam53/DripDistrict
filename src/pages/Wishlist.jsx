@@ -27,7 +27,7 @@ const Wishlist = () => {
             {wishlistItems.map((item) => {
               const discountedPrice = getDiscountedPrice(
                 item.price,
-                item.discountOffered
+                item.discountOffered,
               );
 
               return (

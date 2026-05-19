@@ -11,7 +11,7 @@ const Hero = () => {
             className="w-100 text-decoration-none position-relative overflow-hidden"
           >
             <img
-              src="https://everdion.com/cdn/shop/files/177.webp?v=1737108733"
+              src="https://images.unsplash.com/photo-1613915617430-8ab0fd7c6baf?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGZhc2hpb24lMjBtb2RlbHxlbnwwfHwwfHx8MA%3D%3D"
               className="img-fluid w-100 h-100 object-fit-cover"
               alt="Women"
             />
@@ -34,7 +34,7 @@ const Hero = () => {
             className="w-100 text-decoration-none position-relative overflow-hidden"
           >
             <img
-              src="https://image.hm.com/assets/hm/04/13/0413f5010ec537b8dc3c3e4779658e0b7c4ac7f3.jpg?imwidth=1536"
+              src="https://plus.unsplash.com/premium_photo-1688497830987-e4f7ce4da50b?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8ZmFzaGlvbiUyMG1vZGVsJTIwbWFsZXxlbnwwfHwwfHx8MA%3D%3D"
               className="img-fluid w-100 h-100 object-fit-cover"
               alt="Men"
             />
@@ -60,7 +60,7 @@ const Hero = () => {
           className="text-decoration-none position-relative overflow-hidden d-block"
         >
           <img
-            src="https://plus.unsplash.com/premium_photo-1706382233381-dfd2489fbbe7?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjYxfHxraWRzJTIwJTIwbW9kZWwlMjBmb3IlMjBjbG90aGluZyUyMGJyYW5kfGVufDB8fDB8fHww"
+            src="https://plus.unsplash.com/premium_photo-1697183203094-47d3f553994a?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nzd8fGZhc2hpb24lMjBtb2RlbCUyMGtpZHN8ZW58MHx8MHx8fDA%3D"
             alt="Kids"
             className="img-fluid h-100 w-100 object-fit-cover"
           />

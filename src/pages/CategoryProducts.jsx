@@ -11,7 +11,7 @@ import Information from "../components/Information";
 const CategoryProducts = () => {
   const { categoryName } = useParams();
   const { data, error, loading } = useFetch(
-    `https://drip-district-backend.vercel.app/clothes/category/${categoryName}`
+    `https://drip-district-backend.vercel.app/clothes/category/${categoryName}`,
   );
 
   const {
@@ -71,7 +71,7 @@ const CategoryProducts = () => {
               {displayProducts && displayProducts.length > 0
                 ? displayProducts.map((prod) => {
                     const isInWishlist = wishlistItems.some(
-                      (item) => item._id === prod._id
+                      (item) => item._id === prod._id,
                     );
 
                     return (
