@@ -26,8 +26,30 @@ const BestSellers = () => {
                 <Link to={`/products/${item._id}`}>
                   <img
                     src={item.imageUrl}
-                    className="img-fluid"
+                    className="img-fluid w-100"
                     alt="Clothing"
+                    loading="lazy"
+                    style={{
+                      aspectRatio: "3/4",
+                      objectFit: "cover",
+                      borderRadius: "12px",
+                      transition: "transform 0.3s ease",
+                      backgroundColor: "#f8f9fa",
+                    }}
+                    onError={(e) => {
+                      e.target.src =
+                        "https://placehold.co/600x800?text=No+Image";
+
+                      e.target.style.objectFit = "contain";
+                      e.target.style.padding = "20px";
+                      e.target.style.opacity = "0.7";
+                    }}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.transform = "scale(1.03)";
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.transform = "scale(1)";
+                    }}
                   />
                 </Link>
               </div>

@@ -79,44 +79,87 @@ const CategoryProducts = () => {
                         key={prod._id}
                         className="col-12 col-sm-6 col-md-4 col-lg-3"
                       >
-                        <div className="card h-100 shadow-sm border-0">
+                        <div className="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
                           <Link
                             to={`/products/${prod._id}`}
                             className="text-decoration-none text-dark"
                           >
-                            <img
-                              src={prod.imageUrl}
-                              className="card-img-top img-fluid"
-                              alt={prod.title}
-                              loading="lazy"
+                            <div
+                              className="bg-light position-relative overflow-hidden d-flex align-items-center justify-content-center"
                               style={{
-                                height: "250px",
-                                objectFit: "cover",
+                                aspectRatio: "3/4",
                               }}
-                            />
-                            <div className="card-body d-flex flex-column justify-content-between">
-                              <p className="card-title mb-1 fw-semibold">
+                            >
+                              <img
+                                src={prod.imageUrl}
+                                className="img-fluid w-100 h-100"
+                                alt={prod.title}
+                                loading="lazy"
+                                style={{
+                                  objectFit: "cover",
+                                  transition: "transform 0.3s ease",
+                                }}
+                                onError={(e) => {
+                                  e.target.src =
+                                    "https://placehold.co/600x800?text=No+Image";
+                                  e.target.style.objectFit = "contain";
+                                  e.target.style.padding = "20px";
+                                  e.target.style.opacity = "0.7";
+                                }}
+                                onMouseOver={(e) => {
+                                  e.currentTarget.style.transform =
+                                    "scale(1.05)";
+                                }}
+                                onMouseOut={(e) => {
+                                  e.currentTarget.style.transform = "scale(1)";
+                                }}
+                              />
+
+                              {prod.discountOffered > 0 && (
+                                <span className="badge bg-dark position-absolute top-0 start-0 m-2 px-3 py-2 rounded-pill">
+                                  {prod.discountOffered}% OFF
+                                </span>
+                              )}
+                            </div>
+
+                            <div className="card-body d-flex flex-column">
+                              <p
+                                className="fw-semibold mb-2"
+                                style={{
+                                  minHeight: "48px",
+                                  lineHeight: "1.4",
+                                }}
+                              >
                                 {prod.title}
                               </p>
-                              <div className="mb-1">{prod.rating} ⭐️</div>
-                              <p className="mb-2 fw-bold">
-                                ₹
-                                {(
-                                  prod.price -
-                                  (prod.price * prod.discountOffered) / 100
-                                ).toFixed(0)}
-                                {prod.price && (
-                                  <span className="ms-2 text-muted text-decoration-line-through">
-                                    ₹{prod.price}
-                                  </span>
-                                )}
-                              </p>
+
+                              <div className="mb-2 text-warning small">
+                                {prod.rating} ⭐
+                              </div>
+
+                              <div className="mt-auto">
+                                <p className="fw-bold fs-5 mb-0">
+                                  ₹
+                                  {(
+                                    prod.price -
+                                    (prod.price * prod.discountOffered) / 100
+                                  ).toFixed(0)}
+                                  {prod.price && (
+                                    <span className="ms-2 text-muted text-decoration-line-through fs-6 fw-normal">
+                                      ₹{prod.price}
+                                    </span>
+                                  )}
+                                </p>
+                              </div>
                             </div>
                           </Link>
-                          <div className="card-footer bg-white border-0">
+
+                          <div className="card-footer bg-white border-0 pt-0">
                             <button
                               onClick={() => addToWishlistHandler(prod._id)}
-                              className="btn btn-outline-dark w-100"
+                              className={`btn w-100 rounded-3 fw-semibold py-2 ${
+                                isInWishlist ? "btn-dark" : "btn-outline-dark"
+                              }`}
                             >
                               {isInWishlist
                                 ? "REMOVE FROM WISHLIST"

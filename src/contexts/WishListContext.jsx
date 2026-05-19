@@ -37,9 +37,42 @@ export const WishlistProvider = ({ children }) => {
     });
   };
   const removeFromWishlistHandler = (selectedProdId) => {
+    const product = wishlistItems.find((item) => item._id === selectedProdId);
+
     setWishlistItems((prev) =>
-      prev.filter((item) => item._id !== selectedProdId)
+      prev.filter((item) => item._id !== selectedProdId),
     );
+
+    if (product) {
+      toast.info(`Removed ${product.title} from wishlist`, {
+        toastId: product._id,
+      });
+    }
+  };
+
+  const moveToWishlistHandler = (selectedProdId) => {
+    const product = products.find((prod) => prod._id === selectedProdId);
+
+    if (!product) return;
+
+    setWishlistItems((prev) => {
+      const existing = prev.find((item) => item._id === selectedProdId);
+
+      // Already exists in wishlist
+      if (existing) {
+        toast.info(`${product.title} already in wishlist`, {
+          toastId: product._id,
+        });
+
+        return prev;
+      }
+
+      toast.success(`Moved ${product.title} to wishlist`, {
+        toastId: product._id,
+      });
+
+      return [...prev, product];
+    });
   };
   const addToCartFromWishlistHandler = () => {
     toast.error("Please select a size to move forward.");
@@ -51,6 +84,7 @@ export const WishlistProvider = ({ children }) => {
         wishlistItems,
         removeFromWishlistHandler,
         addToCartFromWishlistHandler,
+        moveToWishlistHandler,
       }}
     >
       {children}

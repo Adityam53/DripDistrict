@@ -28,7 +28,7 @@ const ProductDetails = () => {
 
   const { productId } = useParams();
   const { data, loading, error } = useFetch(
-    `https://drip-district-backend.vercel.app/clothes/${productId}`
+    `https://drip-district-backend.vercel.app/clothes/${productId}`,
   );
 
   const isInWishlist = wishlistItems.some((item) => item._id === productId);
@@ -51,7 +51,29 @@ const ProductDetails = () => {
                 src={data.imageUrl}
                 className="img-fluid"
                 alt={data.title}
-                style={{ width: "100%", maxWidth: "500px" }}
+                loading="lazy"
+                style={{
+                  width: "100%",
+                  maxWidth: "500px",
+                  aspectRatio: "3/4",
+                  objectFit: "cover",
+                  borderRadius: "16px",
+                  backgroundColor: "#f8f9fa",
+                  transition: "transform 0.3s ease",
+                }}
+                onError={(e) => {
+                  e.target.src = "https://placehold.co/600x800?text=No+Image";
+
+                  e.target.style.objectFit = "contain";
+                  e.target.style.padding = "20px";
+                  e.target.style.opacity = "0.7";
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.transform = "scale(1.02)";
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.transform = "scale(1)";
+                }}
               />
             </div>
 

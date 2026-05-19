@@ -13,7 +13,7 @@ const Cart = () => {
     size,
   } = useCartContext();
   const { getDiscountedPrice } = useProductContext();
-  const { addToWishlistHandler } = useWishListContext();
+  const { addToWishlistHandler, moveToWishlistHandler } = useWishListContext();
 
   const cartTotal = cartItems.reduce((acc, curr) => {
     const discountedPrice = getDiscountedPrice(
@@ -88,9 +88,9 @@ const Cart = () => {
                         Size: {item.selectedSize}
                       </p>
                       <button
-                        onClick={() =>
-                          removeFromCartHandler(item._id, item.selectedSize)
-                        }
+                        onClick={() => {
+                          removeFromCartHandler(item._id, item.selectedSize);
+                        }}
                         className="btn btn-link p-0 mt-1"
                         style={{
                           fontSize: "0.9rem",
@@ -102,7 +102,10 @@ const Cart = () => {
                       </button>{" "}
                       <br />
                       <button
-                        onClick={() => addToWishlistHandler(item._id)}
+                        onClick={() => {
+                          moveToWishlistHandler(item._id);
+                          removeFromCartHandler(item._id, item.selectedSize);
+                        }}
                         className="btn btn-link p-0 mt-1"
                         style={{
                           fontSize: "0.9rem",
