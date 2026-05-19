@@ -18,7 +18,7 @@ const Cart = () => {
   const cartTotal = cartItems.reduce((acc, curr) => {
     const discountedPrice = getDiscountedPrice(
       curr.price,
-      curr.discountOffered
+      curr.discountOffered,
     );
     return acc + discountedPrice * curr.quantity;
   }, 0);
@@ -46,12 +46,12 @@ const Cart = () => {
             {cartItems.map((item) => {
               const discountedPrice = getDiscountedPrice(
                 item.price,
-                item.discountOffered
+                item.discountOffered,
               );
 
               return (
                 <div
-                  key={item._id}
+                  key={`${item._id}-${item.selectedSize}`}
                   className="row align-items-center border-bottom mx-2 mx-md-0"
                   style={{
                     padding: "28px 0", // bigger vertical spacing like reference
@@ -88,7 +88,9 @@ const Cart = () => {
                         Size: {item.selectedSize}
                       </p>
                       <button
-                        onClick={() => removeFromCartHandler(item._id)}
+                        onClick={() =>
+                          removeFromCartHandler(item._id, item.selectedSize)
+                        }
                         className="btn btn-link p-0 mt-1"
                         style={{
                           fontSize: "0.9rem",
