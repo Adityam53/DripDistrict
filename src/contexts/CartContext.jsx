@@ -29,13 +29,13 @@ export const CartProvider = ({ children }) => {
     setCartItems((prev) => {
       const existing = prev.find(
         (item) =>
-          item._id === selectedProdId && item.selectedSize === selectedSize
+          item._id === selectedProdId && item.selectedSize === selectedSize,
       );
       if (existing) {
         return prev.map((item) =>
           item._id === selectedProdId && item.selectedSize === selectedSize
             ? { ...item, quantity: item.quantity + selectedQuantity }
-            : item
+            : item,
         );
       }
       return [
@@ -51,11 +51,8 @@ export const CartProvider = ({ children }) => {
     setCartItems((prev) =>
       prev.filter(
         (item) =>
-          !(
-            item._id === selectedProdId &&
-            (!selectedSize || item.selectedSize === selectedSize)
-          )
-      )
+          !(item._id === selectedProdId && item.selectedSize === selectedSize),
+      ),
     );
   };
 
@@ -64,8 +61,8 @@ export const CartProvider = ({ children }) => {
       prev.map((item) =>
         item._id === id && item.selectedSize === selectedSize
           ? { ...item, quantity: item.quantity + 1 }
-          : item
-      )
+          : item,
+      ),
     );
   };
 
@@ -76,8 +73,8 @@ export const CartProvider = ({ children }) => {
         item.quantity > 1 &&
         item.selectedSize === selectedSize
           ? { ...item, quantity: item.quantity - 1 }
-          : item
-      )
+          : item,
+      ),
     );
   };
   const increaseProductPageQuantity = () => {
