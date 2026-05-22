@@ -92,11 +92,12 @@ const CategoryProducts = () => {
                             >
                               <img
                                 src={prod.imageUrl}
-                                className="img-fluid w-100 h-100"
                                 alt={prod.title}
                                 loading="lazy"
+                                className="img-fluid w-100 h-100"
                                 style={{
                                   objectFit: "cover",
+                                  objectPosition: "center top", // 👈 IMPORTANT FIX
                                   transition: "transform 0.3s ease",
                                 }}
                                 onError={(e) => {

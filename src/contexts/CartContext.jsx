@@ -12,16 +12,45 @@ export const CartProvider = ({ children }) => {
     return saved ? JSON.parse(saved) : [];
   });
   const [quantity, setQuantity] = useState(1);
-  const [size, setSize] = useState("");
+  // const [size, setSize] = useState("");
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
   }, [cartItems]);
+  // const addToCartHandler = (selectedProdId, selectedQuantity, selectedSize) => {
+  //   const product = products.find((prod) => prod._id === selectedProdId);
+  //   if (!product) return;
+
+  //   if (!size) {
+  //     toast.error("Please select a size to move forward.");
+  //     return;
+  //   }
+
+  //   setCartItems((prev) => {
+  //     const existing = prev.find(
+  //       (item) =>
+  //         item._id === selectedProdId && item.selectedSize === selectedSize,
+  //     );
+  //     if (existing) {
+  //       return prev.map((item) =>
+  //         item._id === selectedProdId && item.selectedSize === selectedSize
+  //           ? { ...item, quantity: item.quantity + selectedQuantity }
+  //           : item,
+  //       );
+  //     }
+  //     return [
+  //       ...prev,
+  //       { ...product, quantity: selectedQuantity, selectedSize },
+  //     ];
+  //   });
+
+  //   toast.success(`Added ${product.title} (${selectedSize}) to cart`);
+  // };
   const addToCartHandler = (selectedProdId, selectedQuantity, selectedSize) => {
     const product = products.find((prod) => prod._id === selectedProdId);
     if (!product) return;
 
-    if (!size) {
+    if (!selectedSize) {
       toast.error("Please select a size to move forward.");
       return;
     }
@@ -31,6 +60,7 @@ export const CartProvider = ({ children }) => {
         (item) =>
           item._id === selectedProdId && item.selectedSize === selectedSize,
       );
+
       if (existing) {
         return prev.map((item) =>
           item._id === selectedProdId && item.selectedSize === selectedSize
@@ -38,6 +68,7 @@ export const CartProvider = ({ children }) => {
             : item,
         );
       }
+
       return [
         ...prev,
         { ...product, quantity: selectedQuantity, selectedSize },
@@ -46,7 +77,6 @@ export const CartProvider = ({ children }) => {
 
     toast.success(`Added ${product.title} (${selectedSize}) to cart`);
   };
-
   const removeFromCartHandler = (selectedProdId, selectedSize) => {
     setCartItems((prev) =>
       prev.filter(
@@ -99,8 +129,6 @@ export const CartProvider = ({ children }) => {
         removeFromCartHandler,
         increaseProductPageQuantity,
         decreaseProductPageQuantity,
-        size,
-        setSize,
         resetSize,
       }}
     >

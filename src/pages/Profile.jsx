@@ -101,7 +101,9 @@ const Profile = () => {
                       {orders.slice(0, 3).map((order) => (
                         <tr key={order._id}>
                           <td className="text-break">{order._id}</td>
-                          <td>{order.placedAt}</td>
+                          <td>
+                            {new Date(order.placedAt).toLocaleDateString()}{" "}
+                          </td>
                           <td>₹{order.total.toFixed(2)}</td>
                           <td>Delivered</td>
                         </tr>

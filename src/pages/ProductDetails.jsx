@@ -9,7 +9,7 @@ import {
 } from "react-icons/ai";
 import BestSellers from "../components/BestSellers";
 import { useProductContext } from "../contexts/ProductContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useCartContext } from "../contexts/CartContext";
 import { useWishListContext } from "../contexts/WishListContext";
 
@@ -21,11 +21,11 @@ const ProductDetails = () => {
     addToCartHandler,
     increaseProductPageQuantity,
     decreaseProductPageQuantity,
-    size,
-    setSize,
+    // size,
+    // setSize,
   } = useCartContext();
   const { addToWishlistHandler, wishlistItems } = useWishListContext();
-
+  const [selectedSize, setSelectedSize] = useState("");
   const { productId } = useParams();
   const { data, loading, error } = useFetch(
     `https://drip-district-backend.vercel.app/clothes/${productId}`,
@@ -34,9 +34,8 @@ const ProductDetails = () => {
   const isInWishlist = wishlistItems.some((item) => item._id === productId);
   useEffect(() => {
     scrollToTop();
-    setSize(null);
-  }, [scrollToTop, productId, setSize]);
-
+    setSelectedSize("");
+  }, [scrollToTop, productId]);
   return (
     <>
       {loading && <p className="text-center">Loading...</p>}
@@ -167,12 +166,15 @@ const ProductDetails = () => {
                       fontSize: "0.85rem",
                       cursor: "pointer",
                       transition: "all 0.2s ease",
-                      background: size === item ? "#000" : "transparent",
-                      color: size === item ? "#fff" : "#000",
+                      background:
+                        selectedSize === item ? "#000" : "transparent",
+                      color: selectedSize === item ? "#fff" : "#000",
                       border:
-                        size === item ? "2px solid #000" : "1px solid #ccc",
+                        selectedSize === item
+                          ? "2px solid #000"
+                          : "1px solid #ccc",
                     }}
-                    onClick={() => setSize(item)}
+                    onClick={() => setSelectedSize(item)}
                     onMouseEnter={(e) => {
                       if (size !== item) {
                         e.currentTarget.style.background = "#000";
@@ -196,7 +198,7 @@ const ProductDetails = () => {
                 <button
                   className="btn btn-outline-dark px-4"
                   onClick={() =>
-                    addToCartHandler(data._id, parseInt(quantity), size)
+                    addToCartHandler(data._id, quantity, selectedSize)
                   }
                   // disabled={!size}
                 >

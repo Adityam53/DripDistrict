@@ -21,7 +21,8 @@ const Orders = () => {
                 <h6 className="mb-3">
                   Order #{order._id} <br />
                   <small className="text-muted">
-                    Placed on {order.placedAt}
+                    Placed on{" "}
+                    {new Date(order.placedAt).toLocaleDateString()}{" "}
                   </small>
                 </h6>
                 <div className="d-flex flex-column gap-3">

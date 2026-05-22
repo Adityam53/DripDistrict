@@ -3,6 +3,7 @@ import { useCartContext } from "../contexts/CartContext";
 import { useProductContext } from "../contexts/ProductContext";
 import { Link } from "react-router-dom";
 import { useWishListContext } from "../contexts/WishListContext";
+import { toast } from "react-toastify";
 
 const Cart = () => {
   const {
@@ -10,7 +11,6 @@ const Cart = () => {
     increaseQuantity,
     decreaseQuantity,
     removeFromCartHandler,
-    size,
   } = useCartContext();
   const { getDiscountedPrice } = useProductContext();
   const { addToWishlistHandler, moveToWishlistHandler } = useWishListContext();
@@ -90,6 +90,7 @@ const Cart = () => {
                       <button
                         onClick={() => {
                           removeFromCartHandler(item._id, item.selectedSize);
+                          toast.info("Product removed from cart.");
                         }}
                         className="btn btn-link p-0 mt-1"
                         style={{
