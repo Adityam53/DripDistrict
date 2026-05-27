@@ -34,7 +34,7 @@ Watch a walkthrough (4 minutes) of all major features of this app:[Loom Video](h
 
 **Home**
 
-- Heor Images displaying Women,men and kids.
+- Hero Images displaying Women,men and kids.
 - Bestselling products.
 - Latest Offers.
 
