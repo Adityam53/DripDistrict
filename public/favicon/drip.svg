@@ -1,0 +1,32 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Background -->
+  <rect width="256" height="256" rx="56" fill="#FFFFFF"></rect>
+
+  <!-- Main D -->
+  <path d="M72 48
+       H124
+       C176 48 208 82 208 128
+       C208 174 176 208 124 208
+       H72
+       Z" fill="#111111"></path>
+
+  <!-- Inner cutout -->
+  <path d="M108 88
+       H124
+       C154 88 172 104 172 128
+       C172 152 154 168 124 168
+       H108
+       Z" fill="#FFFFFF"></path>
+
+  <!-- Drip -->
+  <path d="M170 200
+       C170 182 182 178 182 164
+       C182 154 176 148 168 148
+       C160 148 154 154 154 164
+       C154 178 166 182 166 200
+       C166 208 168 212 170 212
+       C172 212 174 208 174 200
+       Z" fill="#111111"></path>
+
+</svg>
